@@ -1,0 +1,20 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="/static/assets/css/simplemde.min.css" />
+{% endblock %}
+
+<script src="/static/assets/js/simplemde.min.js"></script>
+
+<script type="text/javascript">
+(function($) {
+    //https://github.com/sparksuite/simplemde-markdown-editor
+     new SimpleMDE({ element: document.getElementById("id_bio") });
+     new SimpleMDE({ element: document.getElementById("id_policy") });
+     new SimpleMDE({ element: document.getElementById("id_scope_description") });
+     new SimpleMDE({ element: document.getElementById("id_out_scope_asset") });
+})(django.jQuery);
+</script>
+{% endblock %}

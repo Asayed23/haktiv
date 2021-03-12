@@ -1,0 +1,55 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+{% block extrastyle %}
+{{ block.super }}
+<style>
+.registration-submit {width:100%;height:50px;background-color:#fff;padding:1.714rem;
+	display: flex;flex-direction: row;}
+.registration-submit .registration {display:inline-block;width:32%;}
+.registration-submit .registration-approve {}
+.registration-submit .registration-reject {}
+.registration-submit .registration-message {}
+.registration-submit .text-help {opacity:0.6;height:40px;font-size:80%;}
+.registration-submit .registration-link {}
+#registereduser_form .field-message {display:none;}
+</style>
+{% endblock extrastyle %}
+{% block after_field_sets %}
+{% if original.status == original.PENDING %}
+<fieldset>
+	<div class="registration-submit">
+		<div class="registration registration-approve">
+	    	<input type="submit" value="Approve Registration" class="default" name="create_user"/><br>
+	    	<p class="text-help">{% trans "Approvement let user to be member of Haktiv" %}</p>
+	    </div>
+	    <div class="registration registration-reject">
+	    	<input type="submit" value="Reject Registration" class="deletelink" name="rejected_user"/>
+	    	<p class="text-help">{% trans "Rejecting let user to be prevented from Haktiv" %}</p>
+	    </div>
+	    <div class="registration registration-message">
+	    	<a href="javascript:void(0)" class="registration-link">{% trans "+ Add Mail Letter" %}</a>
+	    </div>
+	</div>
+</fieldset>
+<script>
+var main_trans = {
+	add_mail_letter: "{% trans '+ Add Mail Letter' %}",
+	remove_mail_letter: "{% trans '- Remove Mail Letter' %}",
+};
+(function($){
+	$(".registration-link").on("click", function(){
+		var element = "#registereduser_form .field-message";
+		var link = this;
+		$(element).toggle('swing', function(){
+			if ($(this).css('display') == 'none') {
+				$(link).text(main_trans["add_mail_letter"]);
+				//$("textarea", this).val('');
+			} else {
+				$(link).text(main_trans["remove_mail_letter"]);
+			}
+		});
+	});
+})(jQuery);
+</script>
+{% endif %}
+{% endblock after_field_sets %}

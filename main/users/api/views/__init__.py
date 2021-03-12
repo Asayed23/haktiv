@@ -1,0 +1,5 @@
+from .password import UserResetPasswordRequest, UserResetPasswordConfirm, ChangePassword
+from .register import ResearcherRegistrationView, CompanyRegistrationView
+from .user_2fa import TwoFactorView, TwoFactorQRCodeView
+from .user_social_media import UserSocialMediaView
+from .user_profile import UserProfileModelViewSet

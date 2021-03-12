@@ -1,0 +1,13 @@
+{% load i18n %}
+
+Dear {{ registered_name }},
+
+Unfortunately, your application is rejected.
+
+{% if message %}
+{{ message }}
+{% endif %}
+
+Thank you for registration,
+
+Best regards,

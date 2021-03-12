@@ -1,0 +1,21 @@
+[Unit]
+Description=Haktiv Backend
+Requires=postgresql.service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+SyslogIdentifier=haktiv.backend
+PermissionsStartOnly=true
+User=stg
+Group=stg
+Environment="DJANGO_SETTINGS_MODULE=config.settings.production"
+WorkingDirectory=/stg/backend
+ExecStart=/stg/backend/env/bin/gunicorn --bind 0.0.0.0:8000 config.wsgi -w 3 --timeout=120 --log-level=error
+StandardOutput=file:/stg/backend/logs/gunicorn.log
+StandardError=file:/stg/backend/logs/gunicorn.log
+StandardOutput=journal+console
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
